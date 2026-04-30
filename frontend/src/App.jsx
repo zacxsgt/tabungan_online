@@ -8,7 +8,7 @@ import {
 import { BarChart, Bar, LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid } from 'recharts';
 import { motion, AnimatePresence } from 'framer-motion';
 
-const API_URL = 'http://localhost:5000/api';
+const API_URL = 'https://tabunganonline-production.up.railway.app/api';
 
 function App() {
   const [activeTab, setActiveTab] = useState('home');
