@@ -136,4 +136,8 @@ app.delete('/api/targets/:id', async (req, res) => {
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
     console.log(`🚀 Server TabungIn menyala di port ${PORT}`);
+<<<<<<< HEAD
 });
+=======
+});
+>>>>>>> 03cadd4adea8bba8a50b3ad0fdd43271d6140d10
