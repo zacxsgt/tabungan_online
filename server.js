@@ -132,8 +132,7 @@ app.delete('/api/targets/:id', async (req, res) => {
     }
 });
 
-// --- JALANKAN SERVER (DIPERBAIKI UNTUK RAILWAY) ---
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, '0.0.0.0', () => {
-    console.log(`🚀 Server TabungIn menyala di port ${PORT}`);
+const port = process.env.PORT || 3000;
+app.listen(port, '0.0.0.0', () => {
+  console.log(`Server running on port ${port}`);
 });
