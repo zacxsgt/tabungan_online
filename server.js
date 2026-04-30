@@ -1,3 +1,4 @@
+require('dotenv').config(); // Tambahkan ini agar bisa membaca file .env di laptop
 const express = require('express');
 const mysql = require('mysql2/promise');
 const cors = require('cors');
@@ -8,17 +9,23 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// --- KONFIGURASI DATABASE ---
+// --- KONFIGURASI DATABASE (DIPERBAIKI UNTUK RAILWAY & LOKAL) ---
 const db = mysql.createPool({
-    host: 'localhost',
-    user: 'root',      
-    password: '',      
-    database: 'tabungan_online' 
+    host: process.env.DB_HOST || 'localhost',
+    user: process.env.DB_USER || 'root',
+    password: process.env.DB_PASSWORD || '',
+    database: process.env.DB_NAME || 'tabungan_online',
+    port: process.env.DB_PORT || 3306
 });
 
 db.getConnection()
-    .then(() => console.log('✅ Terhubung ke Database MySQL (tabungan_online)'))
+    .then(() => console.log(`✅ Terhubung ke Database MySQL (${process.env.DB_NAME || 'tabungan_online'})`))
     .catch((err) => console.error('❌ Gagal konek database:', err));
+
+// --- RUTE UTAMA (Mencegah error "Cannot GET /") ---
+app.get('/', (req, res) => {
+    res.send('✅ Backend Tabungan Online Berjalan Lancar di Railway!');
+});
 
 // --- API 1: AMBIL DATA USER (PROFIL) ---
 app.get('/api/user', async (req, res) => {
@@ -125,8 +132,8 @@ app.delete('/api/targets/:id', async (req, res) => {
     }
 });
 
-// --- JALANKAN SERVER ---
-const PORT = 5000;
+// --- JALANKAN SERVER (DIPERBAIKI UNTUK RAILWAY) ---
+const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
-    console.log(`🚀 Server TabungIn menyala di http://localhost:${PORT}`);
+    console.log(`🚀 Server TabungIn menyala di port ${PORT}`);
 });
